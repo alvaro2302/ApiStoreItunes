@@ -56,15 +56,16 @@ const filtrar=(terminoBusqueda)=>{
           placeholder="Búsqueda por Nombre"          
           onChange={event => setSearch(event.target.value)}
         />
-        <select name="all" id="alll">
-        <option value="All">Volvo</option>
-        <option value="music">Saab</option>
-        <option value="tvSho">Mercedes</option>
-      </select>
+
+        <select name="combo" id="combo">
+          <option value="All">All</option>
+          <option value="music">music</option>
+          <option value="tvShow">tv Show</option>
+        </select>
+
         <button className="btn btn-success"
         onClick={() => peticionGet()}>
-          <FontAwesomeIcon icon={faSearch}/>
-          
+          <FontAwesomeIcon icon={faSearch}/>          
         </button>
       </div>
 
