@@ -41,6 +41,7 @@
 
 .inputBuscar{
   width: 50% !important;
+  
 }
 
 table{
@@ -53,12 +54,13 @@ table{
   display: flex;
   justify-content: flex-end;
   padding-bottom: 25px;
+  align-items: center;
 }
 
 @media (max-width: 988px){
   
   .inputBuscar{
-    width: 100% !important;
+    width: 100% ;
   }
 
   .App{

@@ -4,7 +4,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import Album from './components/Album';
+import Albums from './components/Albums';
 
 function App() {
 
@@ -27,7 +27,7 @@ await axios.get(`https://itunes.apple.com/search?term=${innerJoin}`)
     var viewData = JSON.stringify(response.data);
     var resultsJson=JSON.parse(viewData);
         
-    resultsJson["results"]=resultsJson["results"].filter(album => album.artistName.toLowerCase() == nameSearch.toLowerCase());
+    resultsJson["results"]=resultsJson["results"].filter((album,i) => album.artistName.toLowerCase() == nameSearch.toLowerCase() && i === resultsJson["results"].findIndex( elem => elem.collectionId === album.collectionId) );
     console.log(resultsJson);
 
     setResponseJson(resultsJson["results"]);
@@ -43,7 +43,12 @@ await axios.get(`https://itunes.apple.com/search?term=${innerJoin}`)
 const handleChange=e=>{
   filtrar(e.target.value);
 }
-
+const handleKeyDown= (event) => {
+  if(event.keyCode === 13) { 
+    console.log("teclear enter")
+    peticionGet();
+  }
+}
 const filtrar=(terminoBusqueda)=>{
     
 }
@@ -55,6 +60,7 @@ const filtrar=(terminoBusqueda)=>{
           className="form-control inputBuscar"
           placeholder="Búsqueda por Nombre"          
           onChange={event => setSearch(event.target.value)}
+          onKeyDown={handleKeyDown}
         />
 
         <select name="combo" id="combo">
@@ -70,7 +76,7 @@ const filtrar=(terminoBusqueda)=>{
       </div>
 
      <div className="table-responsive">
-       {responseJson? <Album cover={albumCover} nameAlbum={nameAlbum} artistName={artistName} price={priceAlbum}/>:<h1>cargando...</h1> }
+       {responseJson? <Albums albums={responseJson}/>:<h1>cargando...</h1> }
      </div>
     </div>
   );
